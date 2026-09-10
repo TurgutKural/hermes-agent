@@ -1043,6 +1043,16 @@ def check_all_command_guards(command: str, env_type: str,
         return _approved()
 
     approval_callback, is_cli, is_gateway, is_ask = _presence(approval_callback)
+    # Cron jobs also run inside the long-lived gateway process, which may export
+    # HERMES_INTERACTIVE=1 and HERMES_EXEC_ASK=1 for attended turns. Those are
+    # process-wide host markers, not permissions for this unattended fire. If
+    # they leak through here, the cron skips its deterministic cron_mode branch
+    # and can reach smart or human approval with nobody present. Cron context
+    # owns the decision exactly as single-query context does above.
+    if approval_context._is_cron_approval_context():
+        is_cli = False
+        is_gateway = False
+        is_ask = False
     # Outside CLI/gateway/ask flows we never block on approvals: each
     # unattended context applies its configured deny/approve mode, else allow.
     if not is_cli and not is_gateway and not is_ask:
