@@ -1704,6 +1704,8 @@ cli:
     hint_shell: "終端"
     placeholder_busy_steer: "輸入以引導本輪 · Tab 排到之後"
     placeholder_busy_interrupt: "輸入以改變本輪方向 · Tab 排到之後"
+    placeholder_busy_steer_no_tab: "輸入以引導本輪"
+    placeholder_busy_interrupt_no_tab: "輸入以改變本輪方向"
     placeholder_busy_queue: "輸入以排隊一則本輪結束後的訊息"
   billing:
     load_failed: "{label}：{error}"

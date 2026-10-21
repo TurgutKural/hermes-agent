@@ -1704,6 +1704,8 @@ cli:
     hint_shell: "kabuk"
     placeholder_busy_steer: "bu turu yönlendirmek için yazın · Tab sonrası için sıraya alır"
     placeholder_busy_interrupt: "bu turu değiştirmek için yazın · Tab sonrası için sıraya alır"
+    placeholder_busy_steer_no_tab: "bu turu yönlendirmek için yazın"
+    placeholder_busy_interrupt_no_tab: "bu turu değiştirmek için yazın"
     placeholder_busy_queue: "bu turdan sonrası için mesaj sıraya almak üzere yazın"
   billing:
     load_failed: "{label}: {error}"

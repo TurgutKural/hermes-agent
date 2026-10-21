@@ -1956,6 +1956,8 @@ cli:
     hint_shell: "shell"
     placeholder_busy_steer: "tapez pour orienter ce tour · Tab le met en file pour après"
     placeholder_busy_interrupt: "tapez pour rediriger ce tour · Tab le met en file pour après"
+    placeholder_busy_steer_no_tab: "tapez pour orienter ce tour"
+    placeholder_busy_interrupt_no_tab: "tapez pour rediriger ce tour"
     placeholder_busy_queue: "tapez pour mettre un message en file après ce tour"
   billing:
     load_failed: "{label} : {error}"

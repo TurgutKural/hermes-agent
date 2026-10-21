@@ -38,6 +38,19 @@ def busy_input_mode_from_config(display: dict) -> str:
     return str((display or {}).get("busy_input_mode") or "interrupt").strip().lower()
 
 
+def tab_queues(cli) -> bool:
+    """``display.tab_queue``: false gives Tab back to completion while a turn runs."""
+    return bool(getattr(cli, "_tab_queue", True))
+
+
+def busy_placeholder(cli) -> str:
+    """Composer placeholder while a turn runs; the modern one names Tab only when Tab queues."""
+    if not is_modern(cli):
+        return t("cli.tui.placeholder_busy")
+    mode = cli.busy_input_mode
+    return t(f"cli.modern.placeholder_busy_{mode}" + ("" if mode == "queue" or tab_queues(cli) else "_no_tab"))
+
+
 def _skin_hex(key: str, fallback: str) -> str:
     from hermes_cli.skin_engine import get_active_skin
     return get_active_skin().get_color(key, fallback) or fallback
@@ -312,7 +325,7 @@ def hint_pairs(cli) -> list[tuple[str, str]]:
     if getattr(cli, "_agent_running", False):
         enter = {"steer": "steer", "queue": "queue"}.get(getattr(cli, "busy_input_mode", ""), "interrupt")
         pairs = [("enter", t(f"cli.modern.hint_{enter}"))]
-        if enter != "queue":
+        if enter != "queue" and tab_queues(cli):
             pairs.append(("tab", t("cli.modern.hint_queue")))
         return pairs + [("ctrl+c", t("cli.modern.hint_stop"))]
     return [("/", t("cli.modern.hint_commands")), ("@", t("cli.modern.hint_files")), ("!", t("cli.modern.hint_shell"))]
@@ -393,7 +406,7 @@ def modern_input_rules(cli, kb):
         from hermes_cli.cli_subagent_monitor import modal_prompt_active
         buf = get_app().current_buffer
         text = buf.text.strip()
-        return bool(getattr(cli, "_agent_running", False) and text and buf.complete_state is None
+        return bool(getattr(cli, "_agent_running", False) and tab_queues(cli) and text and buf.complete_state is None
                     and not _looks_like_slash_command(text) and not text.startswith("!")
                     and not modal_prompt_active(cli))
 

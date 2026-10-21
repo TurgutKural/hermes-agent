@@ -1704,6 +1704,8 @@ cli:
     hint_shell: "Shell"
     placeholder_busy_steer: "tippen, um diesen Zug zu lenken · Tab reiht für danach ein"
     placeholder_busy_interrupt: "tippen, um diesen Zug umzulenken · Tab reiht für danach ein"
+    placeholder_busy_steer_no_tab: "tippen, um diesen Zug zu lenken"
+    placeholder_busy_interrupt_no_tab: "tippen, um diesen Zug umzulenken"
     placeholder_busy_queue: "tippen, um eine Nachricht für nach diesem Zug einzureihen"
   billing:
     load_failed: "{label}: {error}"

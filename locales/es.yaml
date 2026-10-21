@@ -1704,6 +1704,8 @@ cli:
     hint_shell: "shell"
     placeholder_busy_steer: "escribe para guiar este turno · Tab lo encola para después"
     placeholder_busy_interrupt: "escribe para redirigir este turno · Tab lo encola para después"
+    placeholder_busy_steer_no_tab: "escribe para guiar este turno"
+    placeholder_busy_interrupt_no_tab: "escribe para redirigir este turno"
     placeholder_busy_queue: "escribe para encolar un mensaje para después de este turno"
   billing:
     load_failed: "{label}: {error}"

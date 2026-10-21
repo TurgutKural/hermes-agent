@@ -1704,6 +1704,8 @@ cli:
     hint_shell: "shell"
     placeholder_busy_steer: "digite para guiar este turno · Tab enfileira para depois"
     placeholder_busy_interrupt: "digite para redirecionar este turno · Tab enfileira para depois"
+    placeholder_busy_steer_no_tab: "digite para guiar este turno"
+    placeholder_busy_interrupt_no_tab: "digite para redirecionar este turno"
     placeholder_busy_queue: "digite para enfileirar uma mensagem para depois deste turno"
   billing:
     load_failed: "{label}: {error}"

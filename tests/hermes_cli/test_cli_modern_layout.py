@@ -172,6 +172,37 @@ def test_tab_never_queues_what_a_prompt_owns(prompt):
         assert not tab.filter(), prompt
 
 
+def test_tab_queue_off_keeps_tab_on_completion_while_busy():
+    """``display.tab_queue: false``: a busy Tab no longer queues the draft, so it falls through to the
+    completion / ghost-suggestion binding, and neither the footer nor the placeholder advertises it."""
+    from types import SimpleNamespace
+    from prompt_toolkit.application import Application
+    from prompt_toolkit.application.current import set_app
+    from prompt_toolkit.buffer import Buffer
+    from prompt_toolkit.key_binding import KeyBindings
+    from prompt_toolkit.keys import Keys
+    from prompt_toolkit.layout import BufferControl, Layout, Window
+    from hermes_cli.cli_modern_layout import hint_pairs, modern_input_rules
+
+    cli = SimpleNamespace(_agent_running=True, _modern_layout=True, busy_input_mode="interrupt",
+                          _tui_input_rule_height=lambda pos: 1)
+    kb = KeyBindings()
+    modern_input_rules(cli, kb)
+    tab = next(b for b in kb.bindings if b.keys == (Keys.ControlI,))
+    buf = Buffer(document=None)
+    buf.text = "also add subtract"
+    with set_app(Application(layout=Layout(Window(BufferControl(buffer=buf))))):
+        assert tab.filter() and "tab" in dict(hint_pairs(cli))  # control
+        cli._tab_queue = False
+        assert not tab.filter()
+        assert "tab" not in dict(hint_pairs(cli))
+
+    from hermes_cli.cli_modern_layout import busy_placeholder
+    assert "Tab" not in busy_placeholder(cli)
+    cli._tab_queue = True
+    assert "Tab" in busy_placeholder(cli)
+
+
 def test_long_user_message_soft_wraps_so_a_resize_reflows_it(monkeypatch):
     """The glyph layout's echo of a long prompt is one logical line per source line: the terminal
     wraps it, so widening the window re-flows it instead of keeping old-width breaks."""

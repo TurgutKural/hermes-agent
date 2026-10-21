@@ -1704,6 +1704,8 @@ cli:
     hint_shell: "blaosc"
     placeholder_busy_steer: "clóscríobh chun an seal seo a stiúradh · cuireann Tab sa scuaine é"
     placeholder_busy_interrupt: "clóscríobh chun an seal seo a atreorú · cuireann Tab sa scuaine é"
+    placeholder_busy_steer_no_tab: "clóscríobh chun an seal seo a stiúradh"
+    placeholder_busy_interrupt_no_tab: "clóscríobh chun an seal seo a atreorú"
     placeholder_busy_queue: "clóscríobh chun teachtaireacht a chur sa scuaine don tréimhse ina dhiaidh"
   billing:
     load_failed: "{label}: {error}"

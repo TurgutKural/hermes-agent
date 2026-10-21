@@ -1704,6 +1704,8 @@ cli:
     hint_shell: "shell"
     placeholder_busy_steer: "пишіть, щоб спрямувати цей хід · Tab ставить у чергу на потім"
     placeholder_busy_interrupt: "пишіть, щоб перенаправити цей хід · Tab ставить у чергу на потім"
+    placeholder_busy_steer_no_tab: "пишіть, щоб спрямувати цей хід"
+    placeholder_busy_interrupt_no_tab: "пишіть, щоб перенаправити цей хід"
     placeholder_busy_queue: "пишіть, щоб поставити повідомлення в чергу після цього ходу"
   billing:
     load_failed: "{label}: {error}"

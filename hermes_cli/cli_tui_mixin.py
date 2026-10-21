@@ -780,9 +780,8 @@ class CLITuiMixin:
         if self._command_running:
             return f"{self._command_spinner_frame()} {self._command_status or t('cli.tui.placeholder_processing_command')}"
         if self._agent_running:
-            if getattr(self, "_modern_layout", False):
-                return t(f"cli.modern.placeholder_busy_{self.busy_input_mode}")
-            return t("cli.tui.placeholder_busy")
+            from hermes_cli.cli_modern_layout import busy_placeholder
+            return busy_placeholder(self)
         if self._voice_mode:
             return t("cli.tui.placeholder_voice_idle", shortcut=self._voice_record_key_label())
         # Advertise a parked draft so the stash can never be silently forgotten.

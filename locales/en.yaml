@@ -1775,6 +1775,8 @@ cli:
     hint_shell: "shell"
     placeholder_busy_steer: "type to steer this turn · Tab queues it for after"
     placeholder_busy_interrupt: "type to redirect this turn · Tab queues it for after"
+    placeholder_busy_steer_no_tab: "type to steer this turn"
+    placeholder_busy_interrupt_no_tab: "type to redirect this turn"
     placeholder_busy_queue: "type to queue a message for after this turn"
   billing:
     # shared helpers (/topup + /subscription)

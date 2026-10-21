@@ -1721,6 +1721,8 @@ cli:
     hint_shell: "shell"
     placeholder_busy_steer: "írj, hogy tereld ezt a kört · Tab sorba állítja utánra"
     placeholder_busy_interrupt: "írj, hogy átirányítsd ezt a kört · Tab sorba állítja utánra"
+    placeholder_busy_steer_no_tab: "írj, hogy tereld ezt a kört"
+    placeholder_busy_interrupt_no_tab: "írj, hogy átirányítsd ezt a kört"
     placeholder_busy_queue: "írj, hogy üzenetet állíts sorba e kör utánra"
   billing:
     load_failed: "{label}: {error}"

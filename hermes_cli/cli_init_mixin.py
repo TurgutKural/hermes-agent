@@ -147,6 +147,7 @@ class CLIInitMixin:
         from hermes_cli.cli_modern_layout import busy_input_mode_from_config, layout_from_config, set_active
         self._modern_layout = layout_from_config(display)  # display.cli_layout: modern | classic
         set_active(self._modern_layout)
+        self._tab_queue = display.get("tab_queue", True)  # modern layout: Tab queues a typed message while busy
         # busy_input_mode: "interrupt" (redirect the run) | "queue" (next turn) | "steer" (inject mid-run).
         _bim = busy_input_mode_from_config(display)
         self.busy_input_mode = _bim if _bim in ("queue", "steer") else "interrupt"
