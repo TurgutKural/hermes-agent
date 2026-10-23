@@ -62,7 +62,11 @@ def read_board_metadata(board: Optional[str] = None) -> dict:
                 meta.update(raw)
     except (OSError, json.JSONDecodeError):
         pass
-    meta["db_path"] = str(_kb.kanban_db_path(slug))
+    # Introspection, not caller intent: reporting where a board WOULD live must
+    # not trip the explicit-board refusal (a pinned worker's completion hook asks
+    # for the current board's metadata), so the machine-flow context answers.
+    with _kb.pin_first_board_resolution():
+        meta["db_path"] = str(_kb.kanban_db_path(slug))
     return meta
 
 

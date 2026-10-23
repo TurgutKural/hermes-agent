@@ -29,7 +29,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Optional
 
+from hermes_cli.kanban_board_paths import BoardPinMismatch
 from hermes_cli.kanban_workflow import DEFAULT_STATUSES as VALID_STATUSES
+from hermes_cli import kanban_board_paths as board_paths
 from toolsets import get_toolset_names
 
 _log = logging.getLogger(__name__)
@@ -547,16 +549,12 @@ def _board_path(
     watcher / dispatcher ticks) and dispatched or delegated workers keep
     resolving through the pin. Without explicit intent the ``env_var`` override
     pins the file, else legacy ``<root>/<default_parts>`` for the ``default``
-    board, else ``board_dir(slug)/leaf``."""
-    pin = os.environ.get(env_var, "").strip() if env_var else ""
-    slug = _explicit_board_slug(board)
-    if pin and (slug is None or _explicit_board_intent_pinned()):
-        return Path(pin).expanduser()
-    if slug is None:
-        slug = get_current_board()
-    if slug == DEFAULT_BOARD:
-        return kanban_home().joinpath(*default_parts)
-    return board_dir(slug) / leaf
+    board, else ``board_dir(slug)/leaf``.
+
+    Inside a fence a *mismatched* explicit ``board=`` argument raises
+    :class:`BoardPinMismatch` instead of quietly resolving to the pin (the rule
+    lives in :mod:`hermes_cli.kanban_board_paths`)."""
+    return board_paths.resolve_board_path(env_var, board, default_parts, leaf)
 
 
 def kanban_db_path(board: Optional[str] = None) -> Path:
